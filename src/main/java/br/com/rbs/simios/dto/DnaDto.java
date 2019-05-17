@@ -1,6 +1,5 @@
 package br.com.rbs.simios.dto;
 
-import com.google.gson.Gson;
 import lombok.Data;
 
 import java.util.Arrays;
@@ -10,9 +9,9 @@ import java.util.stream.Stream;
 @Data
 public class DnaDto {
 
-    private static final Pattern PATTERN = Pattern.compile("^A|^T|^C|^G");
     private static final Pattern NUMBER = Pattern.compile("[*0-9]");
     private static final Pattern SPECIAL_CHARACTERS = Pattern.compile("[$&+,:;=\\\\\\\\?@#|/'<>.^*()%!-]");
+    private static final Pattern INVALID_CHARACTERS = Pattern.compile("B|D|E|F|H|I|J|K|L|M|N|O|P|Q|R|S|U|V|X|Z");
 
     String[] dna;
 
@@ -22,15 +21,25 @@ public class DnaDto {
     }
 
     public boolean isValid() {
-        String dnaJson = new Gson().toJson(dna);
+        String dnaStr = getDnaStr(this.dna);
 
-        if (NUMBER.matcher(dnaJson).find()) {
+        if (NUMBER.matcher(dnaStr).find()) {
             return false;
-        } else if (SPECIAL_CHARACTERS.matcher(dnaJson).find()) {
+        } else if (SPECIAL_CHARACTERS.matcher(dnaStr).find()) {
+            return false;
+        } else if (INVALID_CHARACTERS.matcher(dnaStr).find()) {
             return false;
         }
 
         return validLength(this.dna);
+    }
+
+    private String getDnaStr(String[] dna) {
+        String dnaStr = "";
+        for (int i = 0; i < dna.length; i++)
+            dnaStr += dna[i];
+
+        return dnaStr;
     }
 
     private boolean validLength(String[] dna) {

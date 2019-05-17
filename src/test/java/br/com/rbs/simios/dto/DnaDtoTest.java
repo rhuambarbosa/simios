@@ -42,4 +42,11 @@ public class DnaDtoTest {
         DnaDto dnaDto = new DnaDto(dna);
         assertFalse("Não validou o caracter especial", dnaDto.isValid());
     }
+
+    @Test
+    public void isValidInvalidCharTest() {
+        String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGKG", "CCCCTA", "TCACTG"};
+        DnaDto dnaDto = new DnaDto(dna);
+        assertFalse("Não validou o caracter especial", dnaDto.isValid());
+    }
 }
