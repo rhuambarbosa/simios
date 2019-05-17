@@ -15,4 +15,14 @@ public interface DnaBankRepository extends JpaRepository<DnaBank, Long> {
 
     @Query(nativeQuery = true, value = "SELECT last_value FROM sq_mutant_dna")
     BigInteger getCountMutantDna();
+
+    @Query(nativeQuery = true, value = "SELECT nextval('sq_human_dna')")
+    void addHumanDna();
+
+    @Query(nativeQuery = true, value = "SELECT nextval('sq_mutant_dna')")
+    void addMutantDna();
+
+    DnaBank findByDnaIdxAndDna(String dnaIdx, String dna);
 }
+
+

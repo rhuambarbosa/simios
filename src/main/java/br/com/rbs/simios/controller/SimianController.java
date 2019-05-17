@@ -27,7 +27,7 @@ public class SimianController {
         HttpStatus status = HttpStatus.OK;
 
         try {
-            LOGGER.info("SimianController:Solicitação da verificicação caddeia de DNA");
+            LOGGER.info("SimianController:Solicitação da verificicação cadeia de DNA");
             boolean isSimian = false;
 
             if (dnaDto.isValid()) {

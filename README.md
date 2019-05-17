@@ -68,7 +68,7 @@ ex:
 ```shell
 | Verbo | Funcionalidade               | Descrição
 | ------|------------------------------|---------------------------------------
-| Post  | http://localhost:8080/simian | Validação da cadeia de DNA de é um Símion
+| Post  | http://localhost:8080/simian | Validação da cadeia de DNA de é um Símion. {"dna": ["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"]}
 | Get   | localhost:8080/stats         | Retorna de estatisticas de cadeias validadas
 
 ```

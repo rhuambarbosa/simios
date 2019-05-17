@@ -1,7 +1,7 @@
 CREATE TABLE dna_bank (
-	id numeric PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	dna_idx text NOT null,
-	dna text NOT null,
+	dna text UNIQUE NOT null,
 	simian BOOL NOT null default false,
 	creation_date TIMESTAMP NOT NULL default now()
 );
