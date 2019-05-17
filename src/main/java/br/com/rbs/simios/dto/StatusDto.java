@@ -16,8 +16,8 @@ public class StatusDto {
     private double ratio;
 
     public StatusDto(Long countMutantDna, Long countHumanDna) {
-        this.countMutantDna = countMutantDna;
-        this.countHumanDna = countHumanDna;
+        this.countMutantDna = countMutantDna - 1;
+        this.countHumanDna = countHumanDna - 1;
         this.ratio = calculatePercentage();
     }
 

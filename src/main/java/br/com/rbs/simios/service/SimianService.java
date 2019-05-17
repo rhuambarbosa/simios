@@ -104,10 +104,8 @@ public class SimianService {
                 int skipLine = 0;
                 int idxLine = idx + 1;
                 for (String str : dna) {
-                    if (skipLine++ > idxCadeiaPrincipal) {
-                        if (idxLine < dna.length) {
-                            cadeia += str.charAt(idxLine++);
-                        }
+                    if ((skipLine++ > idxCadeiaPrincipal) && (idxLine < dna.length)) {
+                        cadeia += str.charAt(idxLine++);
                     }
                 }
 
