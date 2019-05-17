@@ -15,7 +15,6 @@ public class DnaDto {
 
     String[] dna;
 
-
     public DnaDto(final String[] dna) {
         this.dna = dna;
     }
@@ -23,11 +22,9 @@ public class DnaDto {
     public boolean isValid() {
         String dnaStr = getDnaStr(this.dna);
 
-        if (NUMBER.matcher(dnaStr).find()) {
-            return false;
-        } else if (SPECIAL_CHARACTERS.matcher(dnaStr).find()) {
-            return false;
-        } else if (INVALID_CHARACTERS.matcher(dnaStr).find()) {
+        if (NUMBER.matcher(dnaStr).find()
+                || SPECIAL_CHARACTERS.matcher(dnaStr).find()
+                || INVALID_CHARACTERS.matcher(dnaStr).find()) {
             return false;
         }
 
