@@ -34,7 +34,7 @@ public class StatusService {
     private long getQtdHumanDna() {
         Long qtdHumanDna = dnaBankRepository.getCountHumanDna().longValue();
 
-        if (!existHuman) {
+        if (qtdHumanDna < 2 && !existHuman) {
             DnaBank humanDna = dnaBankRepository.findFirstBySimianIsFalse();
 
             if (humanDna == null) {
@@ -49,7 +49,7 @@ public class StatusService {
     private long getQtdMutantDna() {
         Long qtdMutantDna = dnaBankRepository.getCountMutantDna().longValue();
 
-        if (!existMutant) {
+        if (qtdMutantDna < 2 && !existMutant) {
             DnaBank mutantDna = dnaBankRepository.findFirstBySimianIsTrue();
 
             if (mutantDna == null) {

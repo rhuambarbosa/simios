@@ -15,6 +15,10 @@ public class DnaDto {
 
     String[] dna;
 
+    public DnaDto() {
+        //Necessario
+    }
+
     public DnaDto(final String[] dna) {
         this.dna = dna;
     }

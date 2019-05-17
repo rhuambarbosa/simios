@@ -33,10 +33,10 @@ public class StatusServiceTest {
             StatusDto statusDto = statusServiceMock.geStatus();
 
             Long countMutantDnaExpected = 40l;
-            Long countHumanDna = 100l;
+            Long countHumanDnaExped = 100l;
             double ratioExpected = 40.0;
 
-            assertEquals(countHumanDna, statusDto.getCountHumanDna(), "countHumanDna não corresponde ao esperado.");
+            assertEquals(countHumanDnaExped, statusDto.getCountHumanDna(), "countHumanDna não corresponde ao esperado.");
             assertEquals(countMutantDnaExpected, statusDto.getCountMutantDna(), "countMutantDnaExpectednão corresponde ao esperado.");
             assertEquals(ratioExpected, statusDto.getRatio(), "% não corresponde ao esperado.");
         } catch (Exception e) {

@@ -137,4 +137,13 @@ public class SimianServiceTest {
         boolean isSimian = simianServiceMock.isSimian(dna);
         assertTrue("DRL5X5-TTTT deveria ser encontrado", isSimian);
     }
+
+    @Test
+    public void simianDRL6X6TTest() throws Exception {
+        String[] dna = {"ATCGGT", "TGTTTT", "CGGTGG", "GGTGGA", "GTGCAT", "GTGCAT"};
+
+        when(dnaBankService.isSimian(any())).thenReturn(null);
+        boolean isSimian = simianServiceMock.isSimian(dna);
+        assertTrue("DRL6X6-TTTT deveria ser encontrado", isSimian);
+    }
 }
