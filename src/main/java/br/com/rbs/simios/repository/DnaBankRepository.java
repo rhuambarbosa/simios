@@ -23,6 +23,10 @@ public interface DnaBankRepository extends JpaRepository<DnaBank, Long> {
     void addMutantDna();
 
     DnaBank findByDnaIdxAndDna(String dnaIdx, String dna);
+
+    DnaBank findFirstBySimianIsTrue();
+
+    DnaBank findFirstBySimianIsFalse();
 }
 
 
