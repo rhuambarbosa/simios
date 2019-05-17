@@ -37,32 +37,17 @@ Gera uma imagem docker rhuambarbosa/withdraw-server:[tag]
 ## Deploying
 Local: Dentro da pasta raiz do projeto onde exite o maven
 ```shell
-mvn spring-boot:run -Dspring.profiles.active=prod
+mvn spring-boot:run
 ```
 Docker:
 ```shell
-docker run -d --restart=always -e "SPRING_PROFILES_ACTIVE=prod" --name withdraw-server -p 9876:9876 -p 8080:8080 rhuambarbosa/withdraw-server:<tag>
+docker run -d --restart=always --name withdraw-server -p 9876:9876 -p 8080:8080  rhuambarbosa/simios:<tag>
 ```
 ## Tests
 ```shell
-Subir o sistema de modo local ou em docker
-
-prompt(digite):telnet localhost 9876
-Informe o json com a solicitação da transação de saque.
-ex:
-{"action": "withdraw","cardnumber":"1234567890123456","amount": "1,10"}
-
-Será experado um json de resposta:
-ex:
 {
-
-"action": "withdraw",
-
-"code":"00",
-
-"authorization_code": "123456"
-
-}
+ "dna": ["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCTCTA"]
+ }
 ```
 ## Funcionalidades API
 ```shell
