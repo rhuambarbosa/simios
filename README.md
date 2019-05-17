@@ -41,7 +41,7 @@ mvn spring-boot:run
 ```
 Docker:
 ```shell
-docker run -d --restart=always --name withdraw-server -p 9876:9876 -p 8080:8080  rhuambarbosa/simios:<tag>
+docker run -d --restart=always --name withdraw-server -p 8080:8080  rhuambarbosa/simios:<tag>
 ```
 ## Tests
 ```shell
