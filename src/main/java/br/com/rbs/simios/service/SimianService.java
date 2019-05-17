@@ -5,10 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class SimianService {
@@ -18,6 +20,8 @@ public class SimianService {
     private static final Pattern PATTERN = Pattern.compile("AAAA|TTTT|CCCC|GGGG");
 
     private static final int QTD_MIN = 4;
+
+    private static final long MIN_SEQ = 2;
 
     @Autowired
     private DnaBankService dnaBankService;
@@ -40,17 +44,27 @@ public class SimianService {
     }
 
     private boolean validarDNA(String[] dna) {
-        boolean isSimian = check(dna);
-        isSimian = checkVerticalSequence(dna, isSimian);
-        isSimian = checkDiagonalLeftToRightSequence(dna, isSimian);
-        isSimian = checkDiagonalRightToLeftSequence(dna, isSimian);
-        return isSimian;
+        long isSimian = check(dna);
+        if (isSimian >= MIN_SEQ) {
+            return Boolean.TRUE;
+        }
+
+        isSimian += checkVerticalSequence(dna);
+        if (isSimian >= MIN_SEQ) {
+            return Boolean.TRUE;
+        }
+
+        isSimian += checkDiagonalLeftToRightSequence(dna);
+        if (isSimian >= MIN_SEQ) {
+            return Boolean.TRUE;
+        }
+
+        isSimian += checkDiagonalRightToLeftSequence(dna);
+
+        return isSimian >= MIN_SEQ;
     }
 
-    private boolean checkVerticalSequence(String[] dna, boolean isSimian) {
-        if (isSimian)
-            return isSimian;
-
+    private long checkVerticalSequence(String[] dna) {
         String[] newDNA = new String[dna.length];
 
         for (int idx = 0; idx < dna.length; idx++) {
@@ -65,16 +79,13 @@ public class SimianService {
         return check(newDNA);
     }
 
-    private boolean checkDiagonalLeftToRightSequence(String[] dna, boolean isSimian) {
-        if (isSimian)
-            return isSimian;
-
+    private long checkDiagonalLeftToRightSequence(String[] dna) {
         String[] newDNA = getDiagonalSequence(dna);
 
         if (newDNA != null && newDNA[0] != null)
             return check(newDNA);
 
-        return isSimian;
+        return 0L;
     }
 
     private String[] getDiagonalSequence(String[] dna) {
@@ -92,12 +103,17 @@ public class SimianService {
             qtdLine += 2;
         }
 
-        int idxNewDNA = 0;
-        String[] newDNA = new String[qtdLine];
+        List<String> newDNAList = new ArrayList();
 
         for (int idxCadeiaPrincipal = 0; idxCadeiaPrincipal <= (qtdLine - 1); idxCadeiaPrincipal++) {
             String cadeiaPrincipal = dna[idxCadeiaPrincipal];
-            for (int idx = 0; idx <= dna.length - (QTD_MIN + idxCadeiaPrincipal); idx++) {
+
+            int interacao = 0;
+            if (idxCadeiaPrincipal == 0) {
+                interacao = dna.length - (QTD_MIN + idxCadeiaPrincipal);
+            }
+
+            for (int idx = 0; idx <= interacao; idx++) {
                 String cadeia = "";
                 cadeia += cadeiaPrincipal.charAt(idx);
 
@@ -108,23 +124,21 @@ public class SimianService {
                         cadeia += str.charAt(idxLine++);
                     }
                 }
-
-                newDNA[idxNewDNA++] = cadeia;
+                newDNAList.add(cadeia);
             }
         }
-        return newDNA;
+
+        String[] newArray = new String[newDNAList.size()];
+        return newDNAList.toArray(newArray);
     }
 
-    private boolean checkDiagonalRightToLeftSequence(String[] dna, boolean isSimian) {
-        if (isSimian)
-            return isSimian;
-
+    private long checkDiagonalRightToLeftSequence(String[] dna) {
         String[] newDNA = getDiagonalSequence(getRevertDnaSequence(dna));
 
         if (newDNA != null && newDNA[0] != null)
             return check(newDNA);
 
-        return isSimian;
+        return 0L;
     }
 
     private String[] getRevertDnaSequence(String[] dna) {
@@ -137,11 +151,9 @@ public class SimianService {
         return reverseList.toArray(reverse);
     }
 
-    private boolean check(String[] dna) {
-        String stream = Arrays.stream(dna).parallel()
-                .filter(cadeia -> PATTERN.matcher(cadeia).find())
-                .findAny()
-                .orElse(null);
-        return stream != null;
+    private long check(String[] dna) {
+        Stream<String> stream = Arrays.stream(dna).parallel()
+                .filter(cadeia -> PATTERN.matcher(cadeia).find());
+        return stream.count();
     }
 }

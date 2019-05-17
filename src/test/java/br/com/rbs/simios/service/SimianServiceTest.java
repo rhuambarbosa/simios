@@ -23,7 +23,16 @@ public class SimianServiceTest {
 
     @Test
     public void simianHATest() throws Exception {
-        String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCTCTA", "TCAAAA"};
+        String[] dna = {"CTGAGA", "CTGAGA", "TATTGA", "AGAGGG", "CCTCTA", "TCAAAA"};
+
+        when(dnaBankService.isSimian(any())).thenReturn(null);
+        boolean isSimian = simianServiceMock.isSimian(dna);
+        assertTrue("AAAA deveria ser encontrado", isSimian);
+    }
+
+    @Test
+    public void simianH2ATest() throws Exception {
+        String[] dna = {"AAAAGA", "CTGAGA", "TATTGA", "AGAGGG", "CCCCTA", "TCAAAA"};
 
         when(dnaBankService.isSimian(any())).thenReturn(null);
         boolean isSimian = simianServiceMock.isSimian(dna);
@@ -32,7 +41,7 @@ public class SimianServiceTest {
 
     @Test
     public void simianHTTest() throws Exception {
-        String[] dna = {"CTGAGA", "CTTTTC", "TATTGT", "AGAGGG", "CCTCTA", "TCAACA"};
+        String[] dna = {"CTGAGA", "CTTTTA", "TATTGA", "AGAGGA", "CCTCTA", "TCAACA"};
 
         when(dnaBankService.isSimian(any())).thenReturn(null);
         boolean isSimian = simianServiceMock.isSimian(dna);
@@ -68,7 +77,7 @@ public class SimianServiceTest {
 
     @Test
     public void simianVCTest() throws Exception {
-        String[] dna = {"CTGCGA", "ATGACC", "AATCGT", "AGACGG", "CCTCTA", "TCCCAA"};
+        String[] dna = {"CTGCGA", "CTGACC", "CATCGT", "CGACGG", "CCTCTA", "TCCCAA"};
 
         when(dnaBankService.isSimian(any())).thenReturn(null);
         boolean isSimian = simianServiceMock.isSimian(dna);
@@ -77,7 +86,7 @@ public class SimianServiceTest {
 
     @Test
     public void simianVGTest() throws Exception {
-        String[] dna = {"ATGAGA", "ATGAGC", "TATTGT", "AGAGGG", "CCTCGA", "TCCAGA"};
+        String[] dna = {"GTGAGA", "GATGAGC", "GATTGT", "GGAGGG", "CCTCGA", "TCCAGA"};
 
         when(dnaBankService.isSimian(any())).thenReturn(null);
         boolean isSimian = simianServiceMock.isSimian(dna);
@@ -95,7 +104,7 @@ public class SimianServiceTest {
 
     @Test
     public void simianDLR4X4GTest() throws Exception {
-        String[] dna = {"GAGA", "GGGC", "TTGT", "AGCG"};
+        String[] dna = {"GAGA", "GGGG", "GTGT", "AGCG"};
 
         when(dnaBankService.isSimian(any())).thenReturn(null);
         boolean isSimian = simianServiceMock.isSimian(dna);
@@ -112,8 +121,8 @@ public class SimianServiceTest {
     }
 
     @Test
-    public void simianDLR5X5TTest() throws Exception {
-        String[] dna = {"GGAGA", "GTGAC", "TATGT", "ATGCG", "ATGCG"};
+    public void simianDLR5X5GTest() throws Exception {
+        String[] dna = {"GGAGA", "GGGGG", "TAGGA", "ATGGA", "ATGCG"};
 
         when(dnaBankService.isSimian(any())).thenReturn(null);
         boolean isSimian = simianServiceMock.isSimian(dna);
@@ -122,7 +131,7 @@ public class SimianServiceTest {
 
     @Test
     public void simianDRL5X5TTest() throws Exception {
-        String[] dna = {"ATCGT", "TACTT", "CGTGG", "GTGAA", "TGCAT"};
+        String[] dna = {"ATCGT", "TTTTT", "CGTGG", "GTGGA", "TGCAT"};
 
         when(dnaBankService.isSimian(any())).thenReturn(null);
         boolean isSimian = simianServiceMock.isSimian(dna);
