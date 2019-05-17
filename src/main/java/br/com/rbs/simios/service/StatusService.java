@@ -43,7 +43,6 @@ public class StatusService {
                 existHuman = Boolean.TRUE;
             }
         }
-
         return qtdHumanDna;
     }
 
@@ -59,7 +58,6 @@ public class StatusService {
                 existMutant = Boolean.TRUE;
             }
         }
-
         return qtdMutantDna;
     }
 }

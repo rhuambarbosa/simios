@@ -27,4 +27,19 @@ public class DnaDtoTest {
         DnaDto dnaDto = new DnaDto(dna);
         assertFalse("Validação errrada dos valores dentro da coluna",dnaDto.isValid());
     }
+
+
+    @Test
+    public void isValidNumberTest() {
+        String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAG9G", "CCCCTA", "TCACTG"};
+        DnaDto dnaDto = new DnaDto(dna);
+        assertFalse("Não validou o número", dnaDto.isValid());
+    }
+
+    @Test
+    public void isValidSpecialCharTest() {
+        String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAG^G", "CCCCTA", "TCACTG"};
+        DnaDto dnaDto = new DnaDto(dna);
+        assertFalse("Não validou o caracter especial", dnaDto.isValid());
+    }
 }
