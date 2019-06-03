@@ -29,19 +29,10 @@ Local
 ```shell
 mvn clean package
 ```
-Docker
-```shell
-mvn clean package docker:build --batch-mode release:update-versions
-```
-Gera uma imagem docker rhuambarbosa/withdraw-server:[tag]
 ## Deploying
 Local: Dentro da pasta raiz do projeto onde exite o maven
 ```shell
 mvn spring-boot:run
-```
-Docker:
-```shell
-docker run -d --restart=always --name simios -p 8080:8080  rhuambarbosa/simios:<tag>
 ```
 ## Tests
 ```shell
